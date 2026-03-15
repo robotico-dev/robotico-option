@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1716;CA1724;CA1000</NoWarn>
+    <RootNamespace>Robotico.Option</RootNamespace>
+    <AssemblyName>Robotico.Option</AssemblyName>
+    <PackageProjectUrl>https://github.com/robotico-dev/robotico-option-csharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/robotico-dev/robotico-option-csharp</RepositoryUrl>
+    <RepositoryBranch>main</RepositoryBranch>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
