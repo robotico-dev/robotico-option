@@ -26,8 +26,13 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     /// <summary>None (no value). Default instance; no allocation.</summary>
     public static Option<T> None => default;
 
-    /// <summary>Some(value). Use for reference types and nullable value types; for value types consider passing explicitly.</summary>
-    public static Option<T> Some(T value) => new(value, true);
+    /// <summary>Some(value). Use for reference types and nullable value types; for value types consider passing explicitly. Throws if value is null (use None for absence).</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is null.</exception>
+    public static Option<T> Some(T value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return new(value, true);
+    }
 
     /// <summary>True if this option has a value.</summary>
     public bool IsSome => _isSome;
@@ -43,6 +48,7 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     public bool IsNone => !_isSome;
 
     /// <summary>Pattern match: run <paramref name="some"/> if Some, else <paramref name="none"/>.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="some"/> or <paramref name="none"/> is null.</exception>
     public TResult Match<TResult>(Func<T, TResult> some, Func<TResult> none)
     {
         ArgumentNullException.ThrowIfNull(some);
@@ -51,6 +57,7 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     }
 
     /// <summary>Map the value if Some; otherwise remain None.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapping"/> is null.</exception>
     public Option<TMapped> Map<TMapped>(Func<T, TMapped> mapping)
     {
         ArgumentNullException.ThrowIfNull(mapping);
@@ -58,6 +65,7 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     }
 
     /// <summary>Bind (flatMap): if Some, apply <paramref name="binding"/>; otherwise remain None.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="binding"/> is null.</exception>
     public Option<TMapped> Bind<TMapped>(Func<T, Option<TMapped>> binding)
     {
         ArgumentNullException.ThrowIfNull(binding);
@@ -68,6 +76,7 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     public T GetValueOr(T defaultValue) => _isSome ? _value! : defaultValue;
 
     /// <summary>Maps the value if Some using an async mapping; otherwise remains None.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapping"/> is null.</exception>
     public async Task<Option<TMapped>> MapAsync<TMapped>(Func<T, Task<TMapped>> mapping)
     {
         ArgumentNullException.ThrowIfNull(mapping);
@@ -75,6 +84,7 @@ public readonly struct Option<T> : IEquatable<Option<T>>
     }
 
     /// <summary>Binds (flatMap) with an async binding if Some; otherwise remains None.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="binding"/> is null.</exception>
     public async Task<Option<TMapped>> BindAsync<TMapped>(Func<T, Task<Option<TMapped>>> binding)
     {
         ArgumentNullException.ThrowIfNull(binding);

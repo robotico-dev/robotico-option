@@ -19,6 +19,9 @@ dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
 # Enforce file-scoped namespaces (C# 10+).
 csharp_style_namespace_declarations = file_scoped:warning
+# Namespace must match folder structure (IDE0130). Project has flat layout so namespace matches.
+dotnet_style_namespace_match_folder = true
+dotnet_diagnostic.IDE0130.severity = warning
 
 # -----------------------------------------------------------------------------
 # Naming
@@ -118,6 +121,16 @@ csharp_space_between_method_call_parameter_list_and_open_brace = false
 # -----------------------------------------------------------------------------
 # Analyzer severities (library-quality bar)
 # -----------------------------------------------------------------------------
+# IDE style rules (enforced)
+dotnet_diagnostic.IDE0005.severity = warning
+dotnet_diagnostic.IDE0011.severity = warning
+dotnet_diagnostic.IDE0028.severity = warning
+dotnet_diagnostic.IDE0033.severity = warning
+dotnet_diagnostic.IDE0034.severity = warning
+dotnet_diagnostic.IDE0037.severity = warning
+dotnet_diagnostic.IDE0041.severity = warning
+dotnet_diagnostic.IDE0049.severity = warning
+dotnet_diagnostic.IDE0090.severity = warning
 dotnet_diagnostic.CA2007.severity = warning
 dotnet_diagnostic.CA1062.severity = warning
 dotnet_diagnostic.CA1812.severity = warning

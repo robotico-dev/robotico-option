@@ -4,6 +4,7 @@ namespace Robotico.Option;
 public static class OptionTaskExtensions
 {
     /// <summary>Maps a task of Option to Option of mapped value.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="mapping"/> is null.</exception>
     public static async Task<Option<TMapped>> MapAsync<T, TMapped>(this Task<Option<T>> task, Func<T, TMapped> mapping)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -13,6 +14,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Maps a task of Option using an async mapping.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="mapping"/> is null.</exception>
     public static async Task<Option<TMapped>> MapAsync<T, TMapped>(this Task<Option<T>> task, Func<T, Task<TMapped>> mapping)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -22,6 +24,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Binds a task of Option.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="binding"/> is null.</exception>
     public static async Task<Option<TMapped>> BindAsync<T, TMapped>(this Task<Option<T>> task, Func<T, Option<TMapped>> binding)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -31,6 +34,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Binds a task of Option with async binding.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="binding"/> is null.</exception>
     public static async Task<Option<TMapped>> BindAsync<T, TMapped>(this Task<Option<T>> task, Func<T, Task<Option<TMapped>>> binding)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -40,6 +44,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Pattern match on a task of Option.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/>, <paramref name="some"/>, or <paramref name="none"/> is null.</exception>
     public static async Task<TResult> MatchAsync<T, TResult>(this Task<Option<T>> task, Func<T, TResult> some, Func<TResult> none)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -50,6 +55,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Runs a side effect when Some on a task of Option; returns the same task result.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="action"/> is null.</exception>
     public static async Task<Option<T>> TapAsync<T>(this Task<Option<T>> task, Action<T> action)
     {
         ArgumentNullException.ThrowIfNull(task);
@@ -59,6 +65,7 @@ public static class OptionTaskExtensions
     }
 
     /// <summary>Runs a side effect when None on a task of Option; returns the same task result.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> or <paramref name="action"/> is null.</exception>
     public static async Task<Option<T>> TapNoneAsync<T>(this Task<Option<T>> task, Action action)
     {
         ArgumentNullException.ThrowIfNull(task);

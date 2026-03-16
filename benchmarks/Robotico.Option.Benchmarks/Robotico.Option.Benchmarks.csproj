@@ -13,11 +13,11 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PackageId>Robotico.Option.Benchmarks</PackageId>
     <!-- CA1707: Benchmark method names use underscores. CA1515: Public benchmark class for BenchmarkDotNet. -->
-    <NoWarn>$(NoWarn);CA1707;CA1515;CA1822;CA1716</NoWarn>
+    <NoWarn>$(NoWarn);CA1707;CA1515;CA1822;CA1716;IDE0005</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.15.6" />
+    <PackageReference Include="BenchmarkDotNet" />
   </ItemGroup>
 
   <ItemGroup>

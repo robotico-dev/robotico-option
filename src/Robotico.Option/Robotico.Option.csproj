@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <NoWarn>$(NoWarn);CA1716;CA1724;CA1000</NoWarn>
+    <!-- RS0016/RS0017: Public API tracking; run code fix to populate PublicAPI.Unshipped.txt, then move to Shipped at release. -->
+    <NoWarn>$(NoWarn);CA1716;CA1724;CA1000;RS0016;RS0017</NoWarn>
     <RootNamespace>Robotico.Option</RootNamespace>
     <AssemblyName>Robotico.Option</AssemblyName>
+    <PackageIcon>logosquare.png</PackageIcon>
     <PackageProjectUrl>https://github.com/robotico-dev/robotico-option-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/robotico-dev/robotico-option-csharp</RepositoryUrl>
     <RepositoryBranch>main</RepositoryBranch>
@@ -12,8 +14,16 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    <!-- Package icon: single source at repo assets. -->
+    <None Include="..\..\assets\logosquare.png" Pack="true" PackagePath="\" Link="logosquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+  <!-- IDE0130 (namespace match folder) needs these for command-line builds. -->
+  <ItemGroup>
+    <CompilerVisibleProperty Include="RootNamespace" />
+    <CompilerVisibleProperty Include="ProjectDir" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ namespace Robotico.Option;
 public static class OptionExtensions
 {
     /// <summary>Runs a side effect when Some; returns the same option.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/> is null.</exception>
     public static Option<T> Tap<T>(this Option<T> option, Action<T> action)
     {
         ArgumentNullException.ThrowIfNull(action);
@@ -17,6 +18,7 @@ public static class OptionExtensions
     }
 
     /// <summary>Runs a side effect when None; returns the same option.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/> is null.</exception>
     public static Option<T> TapNone<T>(this Option<T> option, Action action)
     {
         ArgumentNullException.ThrowIfNull(action);
@@ -34,5 +36,5 @@ public static class OptionExtensions
     public static T? GetValueOrDefault<T>(this Option<T> option) => option.TryGetValue(out T? value) ? value : default;
 
     /// <summary>Converts to nullable: Some(value) → value, None → null. For reference types T? is nullable reference; for value types T? is Nullable&lt;T&gt;.</summary>
-    public static T? ToNullable<T>(this Option<T> option) => option.Match(v => (T?)v, () => default(T?));
+    public static T? ToNullable<T>(this Option<T> option) => option.Match(v => (T?)v, () => default);
 }

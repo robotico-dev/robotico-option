@@ -39,6 +39,7 @@ The library uses **industry-standard naming** (Map, Bind, Match, Tap, RecoverWit
 * Sync path: no heap allocation (struct only).
 * Async methods (`MapAsync`, `BindAsync`, `OptionTaskExtensions`) allocate only for the returned `Task` and continuations.
 * See the `Robotico.Option.Benchmarks` project for Map, Bind, Match, GetValueOr, GetValueOrDefault.
+* *GetHashCode* — When `IsSome`, the hash is derived from the inner value; when `IsNone`, returns 0. Use Option in hashed collections only when the inner type is immutable or value-like.
 
 == Related
 

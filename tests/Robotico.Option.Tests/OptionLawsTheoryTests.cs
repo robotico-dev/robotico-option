@@ -41,4 +41,31 @@ public sealed class OptionLawsTheoryTests
         Option<int> bound = n.Bind(x => Option<int>.Some(x));
         Assert.True(bound.IsNone);
     }
+
+    /// <summary>Monad right-identity: option.Bind(x => Some(x)) equals option.</summary>
+    [Fact]
+    public void Bind_right_identity_Some_preserves_value()
+    {
+        Option<int> s = Option<int>.Some(42);
+        Option<int> bound = s.Bind(x => Option<int>.Some(x));
+        Assert.True(bound.IsSome);
+        Assert.Equal(42, bound.GetValueOr(0));
+        Assert.True(s.Equals(bound));
+    }
+
+    /// <summary>Monad right-identity for None: None.Bind(x => Some(x)) equals None.</summary>
+    [Fact]
+    public void Bind_right_identity_None_remains_None()
+    {
+        Option<int> n = Option<int>.None;
+        Option<int> bound = n.Bind(x => Option<int>.Some(x));
+        Assert.True(bound.IsNone);
+        Assert.True(n.Equals(bound));
+    }
+
+    [Fact]
+    public void Some_throws_when_value_is_null_reference_type()
+    {
+        Assert.Throws<ArgumentNullException>(() => Option<string>.Some(null!));
+    }
 }
