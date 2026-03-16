@@ -1,0 +1,45 @@
+= Robotico.Option — Design
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+
+This document explains the design decisions behind Robotico.Option: when to use Option vs nullable, API naming, and allocation behavior.
+
+== Design principles
+
+=== Option as a value type
+
+`Option<T>` is a `readonly struct`:
+
+* No heap allocation in typical usage; `None` is the default instance.
+* Every transformation (Map, Bind) returns a new instance; the original is unchanged.
+* Use `IsSome(out T value)` for nullable flow; use `Match(some, none)` for both branches.
+
+=== When to use Option vs nullable
+
+* **Option&lt;T&gt;** — When a value may be absent and you want explicit handling: `Match`, `Map`, `Bind`, `Tap`, `TapNone`. Avoids null propagation and makes the absence case explicit at the call site.
+* **T?** — When you only need to pass an optional value through (e.g. optional parameters, DTOs) and don't need a full Option API.
+
+Use Option for dictionary lookups, optional configuration, parsing, or any flow where you want to chain Map/Bind and handle None in one place.
+
+== API naming
+
+The library uses **industry-standard naming** (Map, Bind, Match, Tap, RecoverWith) consistent with functional and railway-oriented style:
+
+* **Map** — Transform the value if Some; otherwise remain None.
+* **Bind** — FlatMap: if Some, apply the binding; otherwise remain None.
+* **Match** — Pattern match: run one of two functions (some / none).
+* **Tap** / **TapNone** — Side effects when Some or None; returns the same option.
+* **RecoverWith** — This option if Some; otherwise the fallback option.
+* **TryGetValue(out T value)** — True if Some and sets the value; supports nullable flow with `[MaybeNullWhen(false)]` (BCL-style).
+
+== Allocation and performance
+
+* Sync path: no heap allocation (struct only).
+* Async methods (`MapAsync`, `BindAsync`, `OptionTaskExtensions`) allocate only for the returned `Task` and continuations.
+* See the `Robotico.Option.Benchmarks` project for Map, Bind, Match, GetValueOr, GetValueOrDefault.
+
+== Related
+
+* link:../README.md[README] — quick start and feature list.
