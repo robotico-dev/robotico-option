@@ -11,7 +11,7 @@
   <!-- NoWarn: CA1724 suppressed on Option type with SuppressMessage (standard domain term). -->
   <PropertyGroup>
     <NoWarn>$(NoWarn)</NoWarn>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Product>Robotico.Option</Product>
     <PackageId>Robotico.Option</PackageId>
     <Title>Robotico.Option</Title>
