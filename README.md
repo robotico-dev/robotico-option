@@ -1,4 +1,6 @@
 # Robotico.Option
+[![Woodpecker CI](https://dvalin.robotico.dev/api/badges/robotico/robotico-option/status.svg)](https://dvalin.robotico.dev/robotico/robotico-option)
+
 
 Option (Maybe) type for .NET 8 and .NET 10. Immutable `readonly struct`, **zero package dependencies**. Use when a value may be absent; prefer over `T?` when you need explicit Match/Map/Bind and no null propagation.
 
